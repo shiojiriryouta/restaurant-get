@@ -50,7 +50,7 @@ const fetchNewText = async (lat, lng) => {
 
 // ホットペッパーを呼び出すテスト
 const fetchGourmetData = async () => {
-  const baseUrl = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
+  const baseUrl = 'https://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
   const url = new URL(baseUrl);
 
   // クエリパラメータを追加
@@ -71,13 +71,11 @@ const fetchGourmetData = async () => {
     return [];
   }
 };
-
+fetchGourmetData()
 const Test = () => {
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
   const [shopDatas, setShopDatas] = useState([]);
-  let tmp = fetchGourmetData()
-  console.log(tmp)
 
   // 現在地を取得する関数
   const handleGetCurrentLocation = () => {
@@ -105,9 +103,6 @@ const Test = () => {
 
   return (
     <div>
-      <div>
-        <p>{tmp.name}</p>
-      </div>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="lat">Latitude:</label>
