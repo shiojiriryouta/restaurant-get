@@ -49,33 +49,25 @@ const fetchNewText = async (lat, lng) => {
 };
 
 // ホットペッパーを呼び出すテスト
-const fetchGourmetData = async () => {
-  const baseUrl = 'https://webservice.recruit.co.jp/hotpepper/gourmet/v1/';
-  const url = new URL(baseUrl);
-
-  // クエリパラメータを追加
-  url.searchParams.append('key', process.env.NEXT_PUBLIC_HOT_PEPPER_API_KEY);
-  url.searchParams.append('tel', '0927537323');
-  url.searchParams.append('format', 'json');
-  
+const fetchGourmetData = async (tel) => {
   try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+    const res = await fetch(`/api/fetchHotPepper?tel=${tel}`);
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
     }
-    const data = await response.json();
-    console.log(data.results.shop[0])
-    return data.results.shop[0];
+    const data = await res.json();
+    return data;
   } catch (error) {
     console.error('Error fetching data:', error);
     return [];
   }
 };
-fetchGourmetData()
+
 const Test = () => {
   const [lat, setLat] = useState('');
   const [lng, setLng] = useState('');
   const [shopDatas, setShopDatas] = useState([]);
+  const [gourmetData, setGourmetData] = useState([]);
 
   // 現在地を取得する関数
   const handleGetCurrentLocation = () => {
@@ -98,8 +90,10 @@ const Test = () => {
     e.preventDefault();
     const shops = await fetchNewText(lat, lng);
     setShopDatas(shops);
+    const gourmet = await fetchGourmetData('0924062652'); // 例として電話番号を指定
+    console.log(gourmet)
+    setGourmetData(gourmet);
   };
-  
 
   return (
     <div>
@@ -144,6 +138,13 @@ const Test = () => {
           <p>No shops found</p>
         )}
       </div>
+      {gourmetData && gourmetData.length > 0 && (
+        <div>
+          <h2>{gourmetData[0].name}</h2>
+          <p>電話番号: {gourmetData[0].tel}</p>
+          <p>住所: {gourmetData[0].address}</p>
+        </div>
+      )}
     </div>
   );
 };
