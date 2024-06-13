@@ -361,7 +361,7 @@ const MapShow = () => {
           </form>
           <p>{process.env.NEXT_PUBLIC_TEST_KEY}</p>
           <p>{process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}</p>
-          <p>{process.env.NEXT_PUBLIC_HOT}</p>
+          <p>{process.env.NEXT_PUBLIC_HOT_PEPPER_API_KEY}</p>
 
         </div>
       </div>
