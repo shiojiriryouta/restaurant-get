@@ -360,6 +360,8 @@ const MapShow = () => {
             <button className='animate-bounce focus:animate-none hover:animate-none inline-flex text-md font-medium bg-indigo-900 mt-5 px-9 py-3 rounded-lg tracking-wide text-white' type="submit">検索</button>
           </form>
           <p>{process.env.NEXT_PUBLIC_TEST_KEY}</p>
+          <p>{process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}</p>
+          <p>{process.env.NEXT_PUBLIC_HOT}</p>
 
         </div>
       </div>
